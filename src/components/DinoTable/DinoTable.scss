@@ -1,0 +1,363 @@
+.dinoTable_wrapper {
+  --color1: #38625a;
+  --color2: #bebebe;
+  --color3: #fff;
+  --color4: #274540;
+
+  position: relative;
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: var(--color1);
+  border-radius: 15px 15px 15px 15px;
+  padding-bottom: 10px;
+  top: 10px;
+
+  &_ranges {
+    display: flex;
+    flex-direction: row;
+    padding: 15px 30px 30px 30px;
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    
+    .ranges_calendars {
+      gap: 15px;
+      display: flex;
+    }
+
+    .ranges_buttons {
+      display: flex;
+      gap: 10px;
+    }
+
+    &_button{
+      cursor: pointer;
+      &:hover {
+        background-color: #274540;
+      }
+      &_active{
+        cursor: pointer;
+        background-color: #274540;
+        margin-top: 20px;
+        width: 90px;
+        height: 60px;
+        font-size: 20px;
+        color:#fff;
+        border: 1px white solid;
+        border-radius: 15px;
+      }
+      margin-top: 20px;
+      width: 90px;
+      height: 60px;
+      font-size: 20px;
+      color:#fff;
+      background-color: #38625a;
+      border: 1px white solid;
+      border-radius: 15px;
+    }
+  }
+
+  .cell:not(:first-child):not(:last-child) {
+    border-left: solid 2px var(--color3);
+  }
+
+  .dinoTable_2_wrapper {
+    max-height: 740px;
+    overflow: overlay;
+
+    .cell:not(:first-child):not(:last-child) {
+      border-left: solid 2px var(--color3);
+    }
+
+    .row:hover {
+      background-color: var(--color4);
+      .copy_button {
+        background-color: var(--color4);
+      }
+    }
+    
+    .history_table {
+      overflow-y: overlay;
+      overflow-x: visible;
+      max-height: 130px;
+    }
+
+
+    .history_table::-webkit-scrollbar {
+      width: 10px;
+      margin-right: 2px;
+    }
+  
+    .history_table::-webkit-scrollbar-track {
+      background-color: var(--color4);
+      border-radius: 20px;
+    }
+  
+    .history_table::-webkit-scrollbar-thumb {
+      background-color: var(--color2);
+      border-radius: 30px;
+    }
+  
+    .history_table::-webkit-scrollbar-thumb:hover {
+      background-color: var(--color2);
+    }
+
+  }
+  #history_table {
+    display: table-cell;
+  }
+
+  .dinoTable_2_wrapper::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  .dinoTable_2_wrapper::-webkit-scrollbar-track {
+    background-color: var(--color1);
+    border-radius: 20px;
+  }
+
+  .dinoTable_2_wrapper::-webkit-scrollbar-thumb {
+    background-color: var(--color2);
+    border-radius: 30px;
+  }
+
+  .dinoTable_2_wrapper::-webkit-scrollbar-thumb:hover {
+    background-color: var(--color2);
+  }
+
+  #row_history {
+    background: var(--color4);
+  }
+
+  #row_history_header {
+    background: var(--color4);
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+    border-bottom: white solid 1px;
+    .cell:nth-child(2) {
+      text-align: center;
+    }
+    .cell:nth-child(1) {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  .wallet_copy {
+    cursor: pointer;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .dinoTable {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+    border-radius: 10px;
+    border: none;
+  }
+
+  .row {
+    display: table-row;
+    width: 100%;
+  }
+
+  .cell {
+    display: table-cell;
+    padding: 10px;
+    overflow: hidden;
+    vertical-align: middle;
+  }
+
+  .cell_copy {
+    display: grid;
+    grid-template-columns: 1fr 40px 40px;
+    column-gap: 10px;
+  }
+
+  .wallet_address {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .cell:first-child {
+    width: 80px;
+  }
+  #row_header {
+    border-bottom: solid 2px var(--color3);
+    text-align: center;
+    font-size: 20px;
+    position: sticky;
+    top: 0;
+  }
+
+  .cell:last-child {
+    text-align: center;
+    width: 150px;
+    border-left: solid 2px var(--color3);
+  }
+
+  .header {
+    font-weight: bold;
+  }
+
+  .dinoFull {
+    position: absolute;
+    max-width: 1200px;
+    top: 0;
+    height: 100%;
+  }
+
+  .dinoLeader {
+    position: absolute;
+    height: 100%;
+    z-index: -1;
+    transform: translate(2%, 0);
+  }
+
+  .dinoTail {
+    position: absolute;
+    height: 100%;
+    transform: translate(-30%, 0);
+    z-index: -1;
+  }
+
+  .arrow_up_button {
+    background-color: var(--color4);
+    border: none;
+    &:hover {
+      cursor: pointer;
+    }
+    .arrow_up {
+      height: 30px;
+      width: 30px;
+      filter: invert(100%);
+    }
+  }
+
+  .copy_button {
+    background-color: var(--color1);
+    border: none;
+    z-index: 99;
+    #etherscan_icon{
+      filter: invert(0);
+    }
+    &:hover {
+      cursor: pointer;
+    }
+    &_icon {
+      height: 20px;
+      width: 20px;
+      filter: invert(100%);
+    }
+  }
+
+  .copy_button2 {
+    background-color: var(--color4);
+    border: none;
+    z-index: 99;
+    &:hover {
+      cursor: pointer;
+    }
+    &_icon2 {
+      height: 20px;
+      width: 20px;
+      filter: invert(100%);
+    }
+  }
+
+  @media (max-width: 1500px) {
+    .dinoTable_wrapper {
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .dinoLeader {
+      display: none;
+    }
+  }
+
+  @media (max-width: 940px) {
+    .dinoTail {
+      display: none;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .dinoTable_wrapper {
+      max-width: 350px;
+      margin: 0 auto;
+    }
+
+    .dinoTable_2_wrapper {
+      max-height: 590px;
+    }
+
+
+    &_ranges {
+    
+      .ranges_calendars {
+        display: flex;
+        flex-direction: column;
+      }
+  
+      .ranges_buttons {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        margin-top: 5px;
+      }
+      &_button{
+        margin-top: 0;
+        width: 90px;
+        height: 50px;
+        font-size: 20px;
+        border: 1px white solid;
+        border-radius: 10px;
+
+        &_active{
+          background-color: #274540;
+          margin-top: 0;
+          width: 90px;
+          height: 50px;
+          font-size: 20px;
+          border: 1px white solid;
+          border-radius: 10px;
+        }
+      }
+    }
+
+    .dinoTable_wrapper {
+      border: none;
+    }
+
+    .cell:first-child {
+      width: 80px;
+    }
+
+    .cell:last-child {
+      width: 100px;
+    }
+
+    .cell:nth-child(2) {
+      width: auto;
+    }
+
+    .row:first-child {
+      padding-top: 5px;
+    }
+    .cell {
+      flex: 1;
+      padding: 4px;
+      box-sizing: border-box;
+    }
+
+    .row header {
+      padding: 0;
+    }
+  }
+}

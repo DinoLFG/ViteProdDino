@@ -20,10 +20,13 @@ import etherscanIcon from "../../assetsDino/etherscanIcon.png"
 const DinoTable = () => {
   const [data, setData] = useState<DinoTableModel[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [loaderLoading, setLoaderLoading] = useState(false);
   const [expandedRows, setExpandedRows] = useState<any>([]);
   const [activeFilter, setActiveFilter] = useState("");
   const [walletAddress, setWalletAddress] = useState<WalletRank | null>(null);
   const allTimeDate = "11/11/2022";
+  
+  const showLoader = loaderLoading || isLoading;
 
   const handleFilterClick = (filter: string) => {
     setActiveFilter(filter);
@@ -41,7 +44,6 @@ const DinoTable = () => {
   useEffect(() => {
     async function getData(fetchString: string) {
       const result = await fetchDataLeader(fetchString);
-      console.log(result)
       const walletRanks = result.walletRank.map((rank: WalletRank) => ({
         address: rank.address,
         ethervalue: rank.ethervalue,
@@ -58,10 +60,12 @@ const DinoTable = () => {
 
   useEffect(() => {
     const fetchPath = `https://dinoapi-production.up.railway.app/transactions?dateFrom=${dataF}&dateTo=${dataT}`;
+    setLoaderLoading(true);
     async function getData() {
       const result = await fetchData(fetchPath);
       setData(result);
       setIsLoading(false);
+      setLoaderLoading(false);
     }
 
     getData();
@@ -394,7 +398,7 @@ const DinoTable = () => {
           />
         </div>
       )}
-      {isLoading && <Loader />}
+      {showLoader && <Loader />}
     </>
   );
 };

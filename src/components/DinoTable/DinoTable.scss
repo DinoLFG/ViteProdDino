@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css?family=Balsamiq+Sans&display=swap');
 .dinoTable_wrapper {
   --color1: #38625a;
   --color2: #bebebe;
@@ -11,8 +12,8 @@
   border-radius: 15px 15px 15px 15px;
   padding-bottom: 10px;
   top: 10px;
-
   &_ranges {
+    font-family: "Balsamiq Sans", cursive;
     display: flex;
     flex-direction: row;
     padding: 15px 30px 30px 30px;

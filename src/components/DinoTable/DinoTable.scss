@@ -33,6 +33,7 @@
 
     &_button{
       cursor: pointer;
+      text-align: center;
       &:hover {
         background-color: #274540;
       }
@@ -309,13 +310,15 @@
         display: flex;
         flex-direction: column;
         justify-content: flex-end;
+        align-items: center;
+        text-align: center;
         margin-top: 5px;
       }
       &_button{
         margin-top: 0;
         width: 90px;
         height: 50px;
-        font-size: 20px;
+        font-size: 18px;
         border: 1px white solid;
         border-radius: 10px;
 
@@ -324,7 +327,7 @@
           margin-top: 0;
           width: 90px;
           height: 50px;
-          font-size: 20px;
+          font-size: 18px;
           border: 1px white solid;
           border-radius: 10px;
         }

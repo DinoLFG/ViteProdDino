@@ -65,6 +65,7 @@ const DinoTable = () => {
       const result = await fetchData(fetchPath);
       setData(result);
       setIsLoading(false);
+      setLoaderLoading(false);
     }
 
     getData();

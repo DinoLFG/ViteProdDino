@@ -10,14 +10,13 @@ import Rank from "../RankComponent/Rank";
 import Loader from "../Loader/Loader";
 import Calendar from "../Calendar/Calendar";
 import { fetchData, fetchDataLeader } from "../../utils/service";
-import * as dotenv from 'dotenv' 
 import dinoLeader from "../../assetsDino/dinoLeader.png"
 import dinoTail from "../../assetsDino/dinoTail.png"
 import arrowUp from "../../assetsDino/arrowUp.png"
 import copyIcon from "../../assetsDino/copyIcon.png"
 import etherscanIcon from "../../assetsDino/etherscanIcon.png"
 
-dotenv.config()
+
 const DinoTable = () => {
   const [data, setData] = useState<DinoTableModel[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -53,12 +52,12 @@ const DinoTable = () => {
     }
     const myWalletData = localStorage.getItem("wagmi.store");
     const parsedWalletData = JSON.parse(myWalletData || "{}");
-    const fetchPathRanking = `https://${process.env.PROD}/walletRank?dateFrom=${dataF}&dateTo=${dataT}&walletaddress=${parsedWalletData.state?.data?.account}`;
+    const fetchPathRanking = `https://dinoapi-production.up.railway.app/walletRank?dateFrom=${dataF}&dateTo=${dataT}&walletaddress=${parsedWalletData.state?.data?.account}`;
     getData(fetchPathRanking);
   }, [dataF, dataT]);
 
   useEffect(() => {
-    const fetchPath = `https://${process.env.PROD}/transactions?dateFrom=${dataF}&dateTo=${dataT}`;
+    const fetchPath = `https://dinoapi-production.up.railway.app/transactions?dateFrom=${dataF}&dateTo=${dataT}`;
     async function getData() {
       const result = await fetchData(fetchPath);
       setData(result);

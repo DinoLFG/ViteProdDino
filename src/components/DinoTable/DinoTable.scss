@@ -67,7 +67,7 @@
 
   .dinoTable_2_wrapper {
     max-height: 740px;
-    overflow: overlay;
+    overflow: auto;
 
     .cell:not(:first-child):not(:last-child) {
       border-left: solid 2px var(--color3);
@@ -81,7 +81,7 @@
     }
     
     .history_table {
-      overflow-y: overlay;
+      overflow-y: auto;
       overflow-x: visible;
       max-height: 130px;
     }

@@ -67,7 +67,12 @@
 
   .dinoTable_2_wrapper {
     max-height: 740px;
-    overflow:scroll;
+    @supports (-moz-appearance:none) { // check for firefox support
+      overflow: auto;
+    }
+    @supports (overflow: overlay) { // check for chrome support
+      overflow: overlay;
+    }
 
     .cell:not(:first-child):not(:last-child) {
       border-left: solid 2px var(--color3);
@@ -81,7 +86,12 @@
     }
     
     .history_table {
-      overflow-y: scroll;
+      @supports (-moz-appearance:none) { // check for firefox support
+        overflow-y: auto;
+      }
+      @supports (overflow: overlay) { // check for chrome support
+        overflow-y: overlay;
+      }
       overflow-x: visible;
       max-height: 130px;
     }

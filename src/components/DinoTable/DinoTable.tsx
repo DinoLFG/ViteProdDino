@@ -336,7 +336,7 @@ const DinoTable = () => {
                           </td>
                         </tr>
                         <tr>
-                          <td colSpan={3}>
+                          <td className="tdFix" colSpan={3}>
                             <div className="history_table">
                               {item.buyData.map((historyItem: buyDataModel) => {
                                 return (

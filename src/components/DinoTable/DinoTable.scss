@@ -21,7 +21,7 @@
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    
+        
     .ranges_calendars {
       gap: 15px;
       display: flex;
@@ -65,6 +65,9 @@
     border-left: solid 2px var(--color3);
   }
 
+  .tdFix{
+    padding: 0;
+  }
   .dinoTable_2_wrapper {
     max-height: 740px;
     @supports (-moz-appearance:none) { // check for firefox support
@@ -99,7 +102,6 @@
 
     .history_table::-webkit-scrollbar {
       width: 10px;
-      margin-right: 2px;
     }
   
     .history_table::-webkit-scrollbar-track {

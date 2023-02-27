@@ -67,7 +67,7 @@
 
   .dinoTable_2_wrapper {
     max-height: 740px;
-    overflow:visible;
+    overflow:auto;
 
     .cell:not(:first-child):not(:last-child) {
       border-left: solid 2px var(--color3);

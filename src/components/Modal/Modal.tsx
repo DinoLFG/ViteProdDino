@@ -1,5 +1,5 @@
 import { Button } from "@mui/material";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import Modal from "@mui/material/Modal";
 import { Box } from "@mui/system";
 import dayjs, { Dayjs } from "dayjs";
@@ -62,6 +62,11 @@ const ModalComponent: React.FC<ModalComponentModel> = ({
   };
 
   useEffect(() => {
+    if (dataTo != null && dataFrom != null) {
+      if (dataTo < dataFrom) {
+        toast.error("Incorrect Date, please try a different one");
+      }
+    }
     setActiveFilter("none");
     if (
       dataTo?.format("YYYY-MM-DD") ===
@@ -153,21 +158,25 @@ const ModalComponent: React.FC<ModalComponentModel> = ({
             </div>
           </div>
           <div className="modal_button_wrapper">
-          <Button
-            style={{ color: "#fff", fontFamily: "Balsamiq Sans, cursive" }}
-            onClick={handleSubmit}
-          >
-            Filter
-          </Button>
-          <Button
-            style={{ color: "#fff", fontFamily: "Balsamiq Sans, cursive" }}
-            onClick={handleClose}
-          >
-            Close
-          </Button>
+            <Button
+              style={{ color: "#fff", fontFamily: "Balsamiq Sans, cursive" }}
+              onClick={handleSubmit}
+            >
+              Filter
+            </Button>
+            <Button
+              style={{ color: "#fff", fontFamily: "Balsamiq Sans, cursive" }}
+              onClick={handleClose}
+            >
+              Close
+            </Button>
           </div>
         </Box>
       </Modal>
+      <ToastContainer
+        toastStyle={{ backgroundColor: "#38625a", color: "#fff" }}
+        autoClose={1500}
+      />
     </React.Fragment>
   );
 };

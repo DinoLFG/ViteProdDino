@@ -38,8 +38,10 @@
     &_button{
       cursor: pointer;
       text-align: center;
+      transition: all 0.6s ease;
       &:hover {
         background-color: #274540;
+        transform: scale(1.05);
       }
       &_active{
         cursor: pointer;

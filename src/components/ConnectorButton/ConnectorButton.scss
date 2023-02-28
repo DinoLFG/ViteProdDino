@@ -1,8 +1,7 @@
 .connector {
-  position: absolute;
-  z-index: 999;
-  top: 15px;
-  right: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 @media (max-width: 1150px) {

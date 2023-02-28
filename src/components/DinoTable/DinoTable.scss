@@ -12,7 +12,7 @@
   border-radius: 15px 15px 15px 15px;
   padding-bottom: 10px;
   top: 10px;
-  &_ranges {
+  &_filter {
     font-family: "Balsamiq Sans", cursive;
     display: flex;
     flex-direction: row;
@@ -30,7 +30,7 @@
     .ranges_buttons {
       font-family: "Balsamiq Sans", cursive;
       display: flex;
-      gap: 10px;
+      gap: 20px;
     }
 
     &_button{
@@ -42,7 +42,6 @@
       &_active{
         cursor: pointer;
         background-color: #274540;
-        margin-top: 20px;
         width: 90px;
         height: 60px;
         font-size: 20px;
@@ -50,13 +49,12 @@
         border: 1px white solid;
         border-radius: 15px;
       }
-      margin-top: 20px;
       width: 90px;
       height: 60px;
       font-size: 20px;
       color:#fff;
       background-color: #38625a;
-      border: 1px white solid;
+      border: 2px white solid;
       border-radius: 15px;
     }
   }
@@ -69,7 +67,7 @@
     padding: 0;
   }
   .dinoTable_2_wrapper {
-    max-height: 740px;
+    max-height: 680px;
     @supports (-moz-appearance:none) { // check for firefox support
       overflow: auto;
     }
@@ -314,7 +312,7 @@
     }
 
 
-    &_ranges {
+    &_filter {
     
       .ranges_calendars {
         display: flex;
@@ -327,7 +325,6 @@
         justify-content: flex-end;
         align-items: center;
         text-align: center;
-        margin-top: 5px;
       }
       &_button{
         margin-top: 0;

@@ -46,11 +46,10 @@ const Calendar: React.FC<CalendarModel> = ({
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <div className="callendar-wrapper">
-        <div>{message}</div>
+        <div style={{color: "#fff"}}>{message}</div>
         <DatePicker
           value={displayData}
           onChange={(newValue) => {
-            // @ts-ignore
             setData(newValue);
           }}
           InputProps={{ sx: inputSx }}

@@ -32,7 +32,6 @@ function App() {
       <RainbowKitProvider chains={chains}>
         <StyledEngineProvider injectFirst>
           <div className="dinoPage">
-            <ConnectorButton />
             <DinoTable />
           </div>
           <Footer />

@@ -2,7 +2,11 @@
   width: 100%;
   display: flex;
   justify-content: center;
+  transition: 0.6s ease;
   filter: url(#round);
+  &:hover {
+    transform: scale(1.2);
+  }
 }
 
 .star {

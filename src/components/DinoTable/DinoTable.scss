@@ -38,7 +38,7 @@
     &_button{
       cursor: pointer;
       text-align: center;
-      transition: all 0.6s ease;
+      transition: 0.6s ease;
       &:hover {
         background-color: #274540;
         transform: scale(1.05);
@@ -234,7 +234,7 @@
     position: absolute;
     height: 100%;
     z-index: -1;
-    transform: translate(2%, 0);
+    transform: translate(10%, 0);
   }
 
   .dinoTail {

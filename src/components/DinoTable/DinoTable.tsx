@@ -1,36 +1,30 @@
 import React, { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import "./DinoTable.scss";
-import { Dayjs } from "dayjs";
 import dayjs from "dayjs";
 import { buyDataModel, DinoTableModel, WalletRank } from "./model";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Rank from "../RankComponent/Rank";
 import Loader from "../Loader/Loader";
-import Calendar from "../Calendar/Calendar";
 import { fetchData, fetchDataLeader } from "../../utils/service";
-import dinoLeader from "../../assetsDino/dinoLeader.png"
-import dinoTail from "../../assetsDino/dinoTail.png"
-import arrowUp from "../../assetsDino/arrowUp.png"
-import copyIcon from "../../assetsDino/copyIcon.png"
-import etherscanIcon from "../../assetsDino/etherscanIcon.png"
-
+import dinoLeader from "../../assetsDino/dinoLeader.png";
+import dinoTail from "../../assetsDino/dinoTail.png";
+import arrowUp from "../../assetsDino/arrowUp.png";
+import copyIcon from "../../assetsDino/copyIcon.png";
+import etherscanIcon from "../../assetsDino/etherscanIcon.png";
+import ModalComponent from "../Modal/Modal";
+import ConnectorButton from "../ConnectorButton/ConnectorButton";
 
 const DinoTable = () => {
   const [data, setData] = useState<DinoTableModel[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [loaderLoading, setLoaderLoading] = useState(false);
-  const [expandedRows, setExpandedRows] = useState<any>([]);
-  const [activeFilter, setActiveFilter] = useState("");
+  const [expandedRows, setExpandedRows] = useState<number[]>([]);
   const [walletAddress, setWalletAddress] = useState<WalletRank | null>(null);
-  const allTimeDate = "11/11/2022";
-  
-  const showLoader = loaderLoading || isLoading;
+  const [open, setOpen] = useState<boolean>(false);
 
-  const handleFilterClick = (filter: string) => {
-    setActiveFilter(filter);
-  };
+  const showLoader = loaderLoading || isLoading;
 
   const [dataF, setDataF] = useState<string>(
     dayjs().add(-1, "month").format("YYYY-MM-DD")
@@ -38,9 +32,6 @@ const DinoTable = () => {
   const [dataT, setDataT] = useState<string>(
     dayjs().add(1, "day").format("YYYY-MM-DD")
   );
-  const [dataFrom, setDataFrom] = useState<Dayjs | null>(dayjs(dataF));
-  const [dataTo, setDataTo] = useState<Dayjs | null>(dayjs(dataT));
-  //const dinoHOST = process.env.HOST
   useEffect(() => {
     async function getData(fetchString: string) {
       const result = await fetchDataLeader(fetchString);
@@ -52,14 +43,17 @@ const DinoTable = () => {
       }));
       setWalletAddress(walletRanks[0]);
     }
+
     const myWalletData = localStorage.getItem("wagmi.store");
     const parsedWalletData = JSON.parse(myWalletData || "{}");
-    const fetchPathRanking = `https://dinoapi-production.up.railway.app/walletRank?dateFrom=${dataF}&dateTo=${dataT}&walletaddress=${parsedWalletData.state?.data?.account}`;
-    getData(fetchPathRanking);
+    const fetchPathRanking = `${import.meta.env.VITE_API}/walletRank?dateFrom=${dataF}&dateTo=${dataT}&walletaddress=${parsedWalletData.state?.data?.account}`;
+    if (parsedWalletData.state?.data?.account !== undefined) {
+      getData(fetchPathRanking);
+    }
   }, [dataF, dataT]);
 
   useEffect(() => {
-    const fetchPath = `https://dinoapi-production.up.railway.app/transactions?dateFrom=${dataF}&dateTo=${dataT}`;
+    const fetchPath = `${import.meta.env.VITE_API}/transactions?dateFrom=${dataF}&dateTo=${dataT}`;
     setLoaderLoading(true);
     async function getData() {
       const result = await fetchData(fetchPath);
@@ -70,42 +64,6 @@ const DinoTable = () => {
 
     getData();
   }, [dataT, dataF]);
-
-  useEffect(() => {
-    if (dataTo) {
-      setDataT(dataTo.format("YYYY-MM-DD"));
-    }
-    if (dataFrom) {
-      setDataF(dataFrom.format("YYYY-MM-DD"));
-    }
-    if (dataTo != null && dataFrom != null) {
-      if (dataTo < dataFrom) {
-        setDataT(dayjs().format("YYYY-MM-DD"));
-        setDataF(dayjs().add(-1, "month").format("YYYY-MM-DD"));
-        toast.error("Incorrect Date, please try a different one");
-      }
-    }
-    setActiveFilter("none");
-    if (
-      dataTo?.format("YYYY-MM-DD") ===
-      dataFrom?.add(1, "day").format("YYYY-MM-DD")
-    ) {
-      setActiveFilter("filter2");
-    }
-    if (
-      dataTo?.add(-1, "day").format("YYYY-MM-DD") ===
-      dataFrom?.add(1, "month").format("YYYY-MM-DD")
-    ) {
-      setActiveFilter("filter3");
-    }
-    if (
-      dataTo?.format("YYYY-MM-DD") ===
-        dayjs().add(1, "day").format("YYYY-MM-DD") &&
-      dataFrom?.format("YYYY-MM-DD") === dayjs(allTimeDate).format("YYYY-MM-DD")
-    ) {
-      setActiveFilter("filter1");
-    }
-  }, [dataTo, dataFrom]);
 
   const handleRowExpand = (rowId: number) => {
     const isRowExpanded = expandedRows.includes(rowId);
@@ -131,70 +89,19 @@ const DinoTable = () => {
     window.open(`https://etherscan.io/address/${value}`);
   };
 
-  const handleDate = (type: string) => {
-    if (type === "allTime") {
-      setDataTo(dayjs().add(1, "day"));
-      setDataFrom(dayjs(allTimeDate));
-      handleFilterClick("filter1");
-    }
-    if (type === "daily") {
-      setDataTo(dayjs().add(1, "day"));
-      setDataFrom(dayjs());
-      handleFilterClick("filter2");
-    }
-
-    if (type === "monthly") {
-      setDataTo(dayjs().add(1, "day"));
-      setDataFrom(dayjs().add(-1, "month"));
-      handleFilterClick("filter3");
-    }
-  };
-
-
   return (
     <>
       {!isLoading && (
         <div className="dinoTable_wrapper">
-          <div className="dinoTable_wrapper_ranges">
+          <div className="dinoTable_wrapper_filter">
             <div className="ranges_buttons">
               <button
-                className={
-                  activeFilter === "filter1"
-                    ? "dinoTable_wrapper_ranges_button_active"
-                    : "dinoTable_wrapper_ranges_button"
-                }
-                onClick={() => handleDate("allTime")}
+                className="dinoTable_wrapper_filter_button"
+                onClick={() => setOpen(true)}
               >
-                All time
+                Filters
               </button>
-              <button
-                className={
-                  activeFilter === "filter2"
-                    ? "dinoTable_wrapper_ranges_button_active"
-                    : "dinoTable_wrapper_ranges_button"
-                }
-                onClick={() => handleDate("daily")}
-              >
-                Daily
-              </button>
-              <button
-                className={
-                  activeFilter === "filter3"
-                    ? "dinoTable_wrapper_ranges_button_active"
-                    : "dinoTable_wrapper_ranges_button"
-                }
-                onClick={() => handleDate("monthly")}
-              >
-                Monthly
-              </button>
-            </div>
-            <div className="ranges_calendars">
-              <Calendar
-                setData={setDataFrom}
-                displayData={dataFrom}
-                message="From"
-              />
-              <Calendar setData={setDataTo} displayData={dataTo} message="To" />
+              <ConnectorButton />
             </div>
           </div>
           <div className="dinoFull">
@@ -399,6 +306,16 @@ const DinoTable = () => {
         </div>
       )}
       {showLoader && <Loader />}
+      {open && (
+        <ModalComponent
+          open={open}
+          setOpen={setOpen}
+          dataT={dataT}
+          dataF={dataF}
+          setDataF={setDataF}
+          setDataT={setDataT}
+        />
+      )}
     </>
   );
 };

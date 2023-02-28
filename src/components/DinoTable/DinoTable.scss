@@ -12,7 +12,7 @@
   border-radius: 15px 15px 15px 15px;
   padding-bottom: 10px;
   top: 10px;
-  &_ranges {
+  &_filter {
     font-family: "Balsamiq Sans", cursive;
     display: flex;
     flex-direction: row;
@@ -29,20 +29,23 @@
 
     .ranges_buttons {
       font-family: "Balsamiq Sans", cursive;
+      width: 100%;
       display: flex;
-      gap: 10px;
+      justify-content: space-between;
+      gap: 20px;
     }
 
     &_button{
       cursor: pointer;
       text-align: center;
+      transition: 0.6s ease;
       &:hover {
         background-color: #274540;
+        transform: scale(1.05);
       }
       &_active{
         cursor: pointer;
         background-color: #274540;
-        margin-top: 20px;
         width: 90px;
         height: 60px;
         font-size: 20px;
@@ -50,14 +53,13 @@
         border: 1px white solid;
         border-radius: 15px;
       }
-      margin-top: 20px;
       width: 90px;
-      height: 60px;
+      height: 40px;
       font-size: 20px;
       color:#fff;
       background-color: #38625a;
-      border: 1px white solid;
-      border-radius: 15px;
+      border: 2px white solid;
+      border-radius: 10px;
     }
   }
 
@@ -69,7 +71,7 @@
     padding: 0;
   }
   .dinoTable_2_wrapper {
-    max-height: 740px;
+    max-height: 680px;
     @supports (-moz-appearance:none) { // check for firefox support
       overflow: auto;
     }
@@ -232,7 +234,7 @@
     position: absolute;
     height: 100%;
     z-index: -1;
-    transform: translate(2%, 0);
+    transform: translate(10%, 0);
   }
 
   .dinoTail {
@@ -314,7 +316,7 @@
     }
 
 
-    &_ranges {
+    &_filter {
     
       .ranges_calendars {
         display: flex;
@@ -327,7 +329,6 @@
         justify-content: flex-end;
         align-items: center;
         text-align: center;
-        margin-top: 5px;
       }
       &_button{
         margin-top: 0;

@@ -46,14 +46,20 @@ const DinoTable = () => {
 
     const myWalletData = localStorage.getItem("wagmi.store");
     const parsedWalletData = JSON.parse(myWalletData || "{}");
-    const fetchPathRanking = `${import.meta.env.VITE_API}/walletRank?dateFrom=${dataF}&dateTo=${dataT}&walletaddress=${parsedWalletData.state?.data?.account}`;
+    const fetchPathRanking = `${
+      import.meta.env.VITE_API
+    }/walletRank?dateFrom=${dataF}&dateTo=${dataT}&walletaddress=${
+      parsedWalletData.state?.data?.account
+    }`;
     if (parsedWalletData.state?.data?.account !== undefined) {
       getData(fetchPathRanking);
     }
   }, [dataF, dataT]);
 
   useEffect(() => {
-    const fetchPath = `${import.meta.env.VITE_API}/transactions?dateFrom=${dataF}&dateTo=${dataT}`;
+    const fetchPath = `${
+      import.meta.env.VITE_API
+    }/transactions?dateFrom=${dataF}&dateTo=${dataT}`;
     setLoaderLoading(true);
     async function getData() {
       const result = await fetchData(fetchPath);

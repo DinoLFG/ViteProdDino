@@ -78,7 +78,6 @@ const DinoTable = () => {
   async function getDataHistory(fetch: string) {
     const result = await fetchData(fetch);
     setDataHistory(result.buys);
-    console.log(dataHistory);
   }
 
   const handleRowExpand = (rowId: number, walletAddress: string) => {

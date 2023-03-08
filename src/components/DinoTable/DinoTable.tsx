@@ -7,7 +7,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Rank from "../RankComponent/Rank";
 import Loader from "../Loader/Loader";
-import { fetchData, fetchDataLeader } from "../../utils/service";
+import { fetchData } from "../../utils/service";
 import dinoLeader from "../../assetsDino/dinoLeader.png";
 import dinoTail from "../../assetsDino/dinoTail.png";
 import arrowUp from "../../assetsDino/arrowUp.png";
@@ -18,9 +18,11 @@ import ConnectorButton from "../ConnectorButton/ConnectorButton";
 
 const DinoTable = () => {
   const [data, setData] = useState<DinoTableModel[]>([]);
+  const [dataHistory, setDataHistory] = useState<buyDataModel[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [loaderLoading, setLoaderLoading] = useState(false);
-  const [expandedRows, setExpandedRows] = useState<number[]>([]);
+  //const [expandedRows, setExpandedRows] = useState<number[]>([]);
+  const [expandedRows, setExpandedRows] = useState<number>(-1);
   const [walletAddress, setWalletAddress] = useState<WalletRank | null>(null);
   const [open, setOpen] = useState<boolean>(false);
 
@@ -34,7 +36,7 @@ const DinoTable = () => {
   );
   useEffect(() => {
     async function getData(fetchString: string) {
-      const result = await fetchDataLeader(fetchString);
+      const result = await fetchData(fetchString);
       const walletRanks = result.walletRank.map((rank: WalletRank) => ({
         address: rank.address,
         ethervalue: rank.ethervalue,
@@ -63,7 +65,7 @@ const DinoTable = () => {
     setLoaderLoading(true);
     async function getData() {
       const result = await fetchData(fetchPath);
-      setData(result);
+      setData(result?.walletRank);
       setIsLoading(false);
       setLoaderLoading(false);
     }
@@ -71,12 +73,25 @@ const DinoTable = () => {
     getData();
   }, [dataT, dataF]);
 
-  const handleRowExpand = (rowId: number) => {
-    const isRowExpanded = expandedRows.includes(rowId);
-    const newExpandedRows = isRowExpanded
-      ? expandedRows.filter((id: number) => id !== rowId)
-      : [...expandedRows, rowId];
-    setExpandedRows(newExpandedRows);
+  async function getDataHistory(fetch: string) {
+    const result = await fetchData(fetch);
+    setDataHistory(result.buys);
+    console.log(dataHistory);
+  }
+
+  const handleRowExpand = (rowId: number, walletAddress: string) => {
+    if (walletAddress !== "") {
+      const fetchPathHistory = `${
+        import.meta.env.VITE_API
+      }/buys?dateFrom=${dataF}&dateTo=${dataT}&wallet=${walletAddress}`;
+      getDataHistory(fetchPathHistory);
+    }
+    setExpandedRows((prev) => (prev === rowId ? -1 : rowId));
+    // const isRowExpanded = expandedRows.includes(rowId);
+    // const newExpandedRows = isRowExpanded
+    //   ? expandedRows.filter((id: number) => id !== rowId)
+    //   : [...expandedRows, rowId];
+    // setExpandedRows(newExpandedRows);
   };
 
   const handleCopy = (value: string, event: React.MouseEvent<HTMLElement>) => {
@@ -175,7 +190,7 @@ const DinoTable = () => {
                     <tr
                       className="row"
                       key={uuidv4()}
-                      onClick={() => handleRowExpand(index)}
+                      onClick={() => handleRowExpand(index, item.address)}
                     >
                       <td className="cell" key={uuidv4()}>
                         <Rank score={index + 1} key={uuidv4()} />
@@ -183,11 +198,11 @@ const DinoTable = () => {
                       <td className="cell" key={uuidv4()}>
                         <div className="cell_copy" key={uuidv4()}>
                           <div className="wallet_address" key={uuidv4()}>
-                            {item.walletAddress}
+                            {item.address}
                           </div>
                           <button
                             onClick={(event: React.MouseEvent<HTMLElement>) =>
-                              handleRedirect(item.walletAddress, event)
+                              handleRedirect(item.address, event)
                             }
                             className="copy_button"
                             key={uuidv4()}
@@ -202,7 +217,7 @@ const DinoTable = () => {
                           </button>
                           <button
                             onClick={(event: React.MouseEvent<HTMLElement>) =>
-                              handleCopy(item.walletAddress, event)
+                              handleCopy(item.address, event)
                             }
                             className="copy_button"
                             key={uuidv4()}
@@ -217,10 +232,10 @@ const DinoTable = () => {
                         </div>
                       </td>
                       <td className="cell" key={uuidv4()}>
-                        {Number(item.totalEther).toFixed(3)}
+                        {Number(item.ethervalue).toFixed(3)}
                       </td>
                     </tr>
-                    {expandedRows.includes(index) && (
+                    {expandedRows === index && (
                       <>
                         <tr
                           className="row"
@@ -229,7 +244,7 @@ const DinoTable = () => {
                         >
                           <td className="cell" key={uuidv4()}>
                             <button
-                              onClick={() => handleRowExpand(index)}
+                              onClick={() => handleRowExpand(index, "")}
                               className="arrow_up_button"
                               key={uuidv4()}
                             >
@@ -251,7 +266,7 @@ const DinoTable = () => {
                         <tr>
                           <td className="tdFix" colSpan={3}>
                             <div className="history_table">
-                              {item.buyData.map((historyItem: buyDataModel) => {
+                              {dataHistory?.map((historyItem: buyDataModel) => {
                                 return (
                                   <div
                                     className="row"
@@ -289,7 +304,9 @@ const DinoTable = () => {
                                       </div>
                                     </div>
                                     <div className="cell" key={uuidv4()}>
-                                      {Number(historyItem.ether).toFixed(5)}
+                                      {Number(historyItem.ethervalue).toFixed(
+                                        5
+                                      )}
                                     </div>
                                   </div>
                                 );

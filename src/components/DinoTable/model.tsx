@@ -1,12 +1,13 @@
 export interface DinoTableModel {
-  walletAddress: string;
-  totalEther: string;
-  totalBuys: string;
-  buyData: buyDataModel[];
+  address: string;
+  ethervalue: string;
+  value: string;
+  rank: string;
+  // buyData: buyDataModel[];
 }
 
 export interface buyDataModel {
-  ether: string;
+  ethervalue: string;
   transactionhash: string;
 }
 

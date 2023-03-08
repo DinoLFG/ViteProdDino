@@ -36,6 +36,7 @@
     }
 
     &_button{
+      padding: 0;
       font-family: "Balsamiq Sans", cursive;
       cursor: pointer;
       text-align: center;
@@ -45,6 +46,7 @@
         transform: scale(1.05);
       }
       &_active{
+        padding: 0;
         cursor: pointer;
         background-color: #274540;
         width: 90px;
@@ -332,6 +334,7 @@
         text-align: center;
       }
       &_button{
+        padding: 0;
         margin-top: 0;
         width: 90px;
         height: 50px;
@@ -340,6 +343,7 @@
         border-radius: 10px;
 
         &_active{
+          padding: 0;
           background-color: #274540;
           margin-top: 0;
           width: 90px;

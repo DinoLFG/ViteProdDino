@@ -1,11 +1,4 @@
-export async function fetchData(fetchPath: string) {
-  const response = await fetch(fetchPath);
-  const data = await response.json();
-  return data.sortedArr;
-}
-
-
-export async function fetchDataLeader(fetchString: string) {
+export async function fetchData(fetchString: string) {
   try {
     const response = await fetch(fetchString);
     if (!response.ok) {

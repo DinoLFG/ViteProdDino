@@ -69,6 +69,8 @@ const DinoTable = () => {
       setIsLoading(false);
       setLoaderLoading(false);
     }
+    setDataHistory([]);
+    setExpandedRows(-1);
 
     getData();
   }, [dataT, dataF]);

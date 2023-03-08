@@ -81,6 +81,7 @@ const DinoTable = () => {
 
   const handleRowExpand = (rowId: number, walletAddress: string) => {
     if (walletAddress !== "") {
+      setDataHistory([]);
       const fetchPathHistory = `${
         import.meta.env.VITE_API
       }/buys?dateFrom=${dataF}&dateTo=${dataT}&wallet=${walletAddress}`;

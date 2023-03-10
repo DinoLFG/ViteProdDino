@@ -5,9 +5,9 @@ import ReplaceMePage from "../pages/ReplaceMePage/componentPage";
 const AppRouting = () => {
   return (
     <Routes>
-      <Route path="/leaderboard" element={<Leaderboard />} />
-      <Route path="/" element={<Navigate to="/leaderboard" />} />
-      <Route path="/replaceMe" element={<ReplaceMePage />} />
+      <Route path="/" element={<Leaderboard />} />
+      {/* <Route path="/" element={<Navigate to="/leaderboard" />} />
+      <Route path="/replaceMe" element={<ReplaceMePage />} /> */}
     </Routes>
   );
 };

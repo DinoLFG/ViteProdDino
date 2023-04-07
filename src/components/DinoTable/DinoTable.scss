@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Balsamiq+Sans&display=swap');
+@import url("https://fonts.googleapis.com/css?family=Balsamiq+Sans&display=swap");
 .dinoTable_wrapper {
   --color1: #38625a;
   --color2: #bebebe;
@@ -21,7 +21,7 @@
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-        
+
     .ranges_calendars {
       gap: 15px;
       display: flex;
@@ -35,33 +35,68 @@
       gap: 20px;
     }
 
-    &_button{
+    &_button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
       padding: 0;
       font-family: "Balsamiq Sans", cursive;
       cursor: pointer;
       text-align: center;
       transition: 0.6s ease;
+      &_icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0;
+        font-family: "Balsamiq Sans", cursive;
+        cursor: pointer;
+    text-align: center;
+    transition: 0.6s ease;
+        &:hover {
+          background-color: var(--color4);
+          transform: scale(1.05);
+        }
+        &_active {
+          padding: 0;
+          cursor: pointer;
+          background-color: var(--color4);
+          width: 90px;
+          height: 60px;
+          font-size: 20px;
+          color: var(--color3);
+          border: 1px var(--color3) solid;
+          border-radius: 15px;
+        }
+        width: 50px;
+        height: 40px;
+        font-size: 20px;
+        color: var(--color3);
+        background-color: var(--color1);
+        border: 2px var(--color3) solid;
+        border-radius: 10px;
+      }
       &:hover {
-        background-color: #274540;
+        background-color: var(--color4);
         transform: scale(1.05);
       }
-      &_active{
+      &_active {
         padding: 0;
         cursor: pointer;
-        background-color: #274540;
+        background-color: var(--color4);
         width: 90px;
         height: 60px;
         font-size: 20px;
-        color:#fff;
-        border: 1px white solid;
+        color: var(--color3);
+        border: 1px var(--color3) solid;
         border-radius: 15px;
       }
       width: 90px;
       height: 40px;
       font-size: 20px;
-      color:#fff;
-      background-color: #38625a;
-      border: 2px white solid;
+      color: var(--color3);
+      background-color: var(--color1);
+      border: 2px var(--color3) solid;
       border-radius: 10px;
     }
   }
@@ -70,15 +105,17 @@
     border-left: solid 2px var(--color3);
   }
 
-  .tdFix{
+  .tdFix {
     padding: 0;
   }
   .dinoTable_2_wrapper {
     max-height: 680px;
-    @supports (-moz-appearance:none) { // check for firefox support
+    @supports (-moz-appearance: none) {
+      // check for firefox support
       overflow: auto;
     }
-    @supports (overflow: overlay) { // check for chrome support
+    @supports (overflow: overlay) {
+      // check for chrome support
       overflow: overlay;
     }
 
@@ -92,37 +129,37 @@
         background-color: var(--color4);
       }
     }
-    
+
     .history_table {
-      @supports (-moz-appearance:none) { // check for firefox support
+      @supports (-moz-appearance: none) {
+        // check for firefox support
         overflow-y: auto;
       }
-      @supports (overflow: overlay) { // check for chrome support
+      @supports (overflow: overlay) {
+        // check for chrome support
         overflow-y: overlay;
       }
       overflow-x: visible;
       max-height: 130px;
     }
 
-
     .history_table::-webkit-scrollbar {
       width: 10px;
     }
-  
+
     .history_table::-webkit-scrollbar-track {
       background-color: var(--color4);
       border-radius: 20px;
     }
-  
+
     .history_table::-webkit-scrollbar-thumb {
       background-color: var(--color2);
       border-radius: 30px;
     }
-  
+
     .history_table::-webkit-scrollbar-thumb:hover {
       background-color: var(--color2);
     }
-
   }
   #history_table {
     display: table-cell;
@@ -153,7 +190,7 @@
   #row_history_header {
     background: var(--color4);
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
-    border-bottom: white solid 1px;
+    border-bottom: var(--color3) solid 1px;
     .cell:nth-child(2) {
       text-align: center;
     }
@@ -264,7 +301,7 @@
     background-color: var(--color1);
     border: none;
     z-index: 99;
-    #etherscan_icon{
+    #etherscan_icon {
       filter: invert(0);
     }
     &:hover {
@@ -318,14 +355,12 @@
       max-height: 590px;
     }
 
-
     &_filter {
-    
       .ranges_calendars {
         display: flex;
         flex-direction: column;
       }
-  
+
       .ranges_buttons {
         display: flex;
         flex-direction: column;
@@ -333,23 +368,23 @@
         align-items: center;
         text-align: center;
       }
-      &_button{
+      &_button {
         padding: 0;
         margin-top: 0;
         width: 90px;
         height: 50px;
         font-size: 18px;
-        border: 1px white solid;
+        border: 1px var(--color3) solid;
         border-radius: 10px;
 
-        &_active{
+        &_active {
           padding: 0;
-          background-color: #274540;
+          background-color: var(--color4);
           margin-top: 0;
           width: 90px;
           height: 50px;
           font-size: 18px;
-          border: 1px white solid;
+          border: 1px var(--color3) solid;
           border-radius: 10px;
         }
       }

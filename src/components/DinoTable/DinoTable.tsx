@@ -15,6 +15,8 @@ import copyIcon from "../../assetsDino/copyIcon.png";
 import etherscanIcon from "../../assetsDino/etherscanIcon.png";
 import ModalComponent from "../Modal/Modal";
 import ConnectorButton from "../ConnectorButton/ConnectorButton";
+import MenuListComposition from "../MenuList/MenuList";
+import { apiPath, checkHeaderTitle, checkSubHeaderTitle, roundingHeaders, rounding } from "./helper";
 
 const DinoTable = () => {
   const [data, setData] = useState<DinoTableModel[]>([]);
@@ -24,6 +26,9 @@ const DinoTable = () => {
   //const [expandedRows, setExpandedRows] = useState<number[]>([]);
   const [expandedRows, setExpandedRows] = useState<number>(-1);
   const [walletAddress, setWalletAddress] = useState<WalletRank | null>(null);
+  const [apiCurrentPath, setApiCurrentPath] = useState<string>(
+    apiPath.transactions
+  );
   const [open, setOpen] = useState<boolean>(false);
 
   const showLoader = loaderLoading || isLoading;
@@ -39,7 +44,7 @@ const DinoTable = () => {
       const result = await fetchData(fetchString);
       const walletRanks = result.walletRank.map((rank: WalletRank) => ({
         address: rank.address,
-        ethervalue: rank.ethervalue,
+        ammount: rank.ammount,
         rank: rank.rank,
         value: rank.value,
       }));
@@ -50,7 +55,7 @@ const DinoTable = () => {
     const parsedWalletData = JSON.parse(myWalletData || "{}");
     const fetchPathRanking = `${
       import.meta.env.VITE_API
-    }/walletRank?dateFrom=${dataF}&dateTo=${dataT}&walletaddress=${
+    }/${apiCurrentPath}/walletRank?dateFrom=${dataF}&dateTo=${dataT}&walletaddress=${
       parsedWalletData.state?.data?.account
     }`;
     if (parsedWalletData.state?.data?.account !== undefined) {
@@ -61,11 +66,11 @@ const DinoTable = () => {
   useEffect(() => {
     const fetchPath = `${
       import.meta.env.VITE_API
-    }/transactions?dateFrom=${dataF}&dateTo=${dataT}`;
+    }/${apiCurrentPath}?dateFrom=${dataF}&dateTo=${dataT}`;
     setLoaderLoading(true);
     async function getData() {
       const result = await fetchData(fetchPath);
-      setData(result?.walletRank);
+      setData(result?.walletRank || result?.res);
       setIsLoading(false);
       setLoaderLoading(false);
     }
@@ -73,11 +78,11 @@ const DinoTable = () => {
     setExpandedRows(-1);
 
     getData();
-  }, [dataT, dataF]);
+  }, [dataT, dataF, apiCurrentPath]);
 
   async function getDataHistory(fetch: string) {
     const result = await fetchData(fetch);
-    setDataHistory(result.buys);
+    setDataHistory(result?.buys || result?.res);
   }
 
   const handleRowExpand = (rowId: number, walletAddress: string) => {
@@ -85,7 +90,7 @@ const DinoTable = () => {
       setDataHistory([]);
       const fetchPathHistory = `${
         import.meta.env.VITE_API
-      }/buys?dateFrom=${dataF}&dateTo=${dataT}&wallet=${walletAddress}`;
+      }/${apiCurrentPath}/list?dateFrom=${dataF}&dateTo=${dataT}&walletaddress=${walletAddress}`;
       getDataHistory(fetchPathHistory);
     }
     setExpandedRows((prev) => (prev === rowId ? -1 : rowId));
@@ -118,12 +123,20 @@ const DinoTable = () => {
         <div className="dinoTable_wrapper">
           <div className="dinoTable_wrapper_filter">
             <div className="ranges_buttons">
-              <button
-                className="dinoTable_wrapper_filter_button"
-                onClick={() => setOpen(true)}
-              >
-                Filters
-              </button>
+              <div style={{ display: "flex", gap: "20px" }}>
+                <MenuListComposition
+                  setApiCurrentPath={setApiCurrentPath}
+                  title={apiCurrentPath}
+                />
+                <button
+                  className="dinoTable_wrapper_filter_button_icon"
+                  onClick={() => setOpen(true)}
+                >
+                  <svg width="25px" height="25px" fill="white">
+                    <path d="M4.25 5.61C6.27 8.2 10 13 10 13v6c0 .55.45 1 1 1h2c.55 0 1-.45 1-1v-6s3.72-4.8 5.74-7.39c.51-.66.04-1.61-.79-1.61H5.04c-.83 0-1.3.95-.79 1.61z"></path>
+                  </svg>
+                </button>
+              </div>
               <ConnectorButton />
             </div>
           </div>
@@ -135,7 +148,7 @@ const DinoTable = () => {
             <div className="row header" id="row_header">
               <div className="cell">RANK</div>
               <div className="cell">Wallet</div>
-              <div className="cell">Total ETH</div>
+              <div className="cell">{checkHeaderTitle(apiCurrentPath)}</div>
             </div>
           </div>
           <div className="dinoTable_2_wrapper">
@@ -181,7 +194,7 @@ const DinoTable = () => {
                       </div>
                     </td>
                     <td className="cell">
-                      {Number(walletAddress.ethervalue).toFixed(3)}
+                      {roundingHeaders(apiCurrentPath, walletAddress.ammount)}
                     </td>
                   </tr>
                 )}
@@ -234,7 +247,7 @@ const DinoTable = () => {
                         </div>
                       </td>
                       <td className="cell" key={uuidv4()}>
-                        {Number(item.ethervalue).toFixed(3)}
+                        {roundingHeaders(apiCurrentPath, item.ammount)}
                       </td>
                     </tr>
                     {expandedRows === index && (
@@ -262,7 +275,7 @@ const DinoTable = () => {
                             Transaction hash
                           </td>
                           <td className="cell" key={uuidv4()}>
-                            Total Value
+                            {checkSubHeaderTitle(apiCurrentPath)}
                           </td>
                         </tr>
                         <tr>
@@ -306,9 +319,7 @@ const DinoTable = () => {
                                       </div>
                                     </div>
                                     <div className="cell" key={uuidv4()}>
-                                      {Number(historyItem.ethervalue).toFixed(
-                                        5
-                                      )}
+                                      {rounding(apiCurrentPath, historyItem.ammount)}
                                     </div>
                                   </div>
                                 );

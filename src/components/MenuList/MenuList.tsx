@@ -102,6 +102,7 @@ const MenuListComposition = ({ setApiCurrentPath, title }) => {
   };
 
   const ButtonStyles = {
+    fontWeight: "700",
     color: "#fff",
     border: "2px #fff solid",
     borderRadius: "10px",

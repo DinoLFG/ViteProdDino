@@ -125,7 +125,7 @@ const MenuListComposition = ({ setApiCurrentPath, title }) => {
           onClick={handleToggle}
           sx={ButtonStyles}
         >
-          {title}
+          {title === apiPath.transactions ? 'buys' : title}
         </Button>
         <Popper
           open={open}
@@ -153,7 +153,7 @@ const MenuListComposition = ({ setApiCurrentPath, title }) => {
                     sx={MenuListStyles}
                   >
                     <MenuItem onClick={handleCloseTransactions} sx={MenuListItemStyles}>
-                      Buy Transactions
+                      Buys
                     </MenuItem>
                     <MenuItem onClick={handleCloseStaking} sx={MenuListItemStyles}>Staking</MenuItem>
                     <MenuItem onClick={handleCloseBurning} sx={MenuListItemStyles}>Burning</MenuItem>

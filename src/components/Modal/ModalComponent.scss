@@ -1,4 +1,10 @@
+
+
 .dinoTable_wrapper_ranges {
+  --color1: #2b454e;
+  --color2: #bebebe;
+  --color3: #fff;
+  --color4: #173038;
   font-family: "Balsamiq Sans", cursive;
   display: flex;
   flex-direction: row;
@@ -24,12 +30,12 @@
     text-align: center;
     transition: all 0.6s ease;
       &:hover {
-        background-color: #274540;
+        background-color: var(--color4);
         transform: scale(1.05);
       }
     &_active {
       cursor: pointer;
-      background-color: #274540;
+      background-color: var(--color4);
       margin-top: 20px;
       width: 90px;
       transform: scale(1.05);
@@ -44,7 +50,7 @@
     height: 60px;
     font-size: 20px;
     color: #fff;
-    background-color: #38625a;
+    background-color: var(--color1);
     border: 1px white solid;
     border-radius: 15px;
   }
@@ -74,7 +80,7 @@
       border-radius: 10px;
 
       &_active {
-        background-color: #274540;
+        background-color: var(--color1);
         margin-top: 0;
         width: 90px;
         height: 50px;

@@ -340,7 +340,7 @@ const DinoTable = () => {
             </table>
           </div>
           <ToastContainer
-            toastStyle={{ backgroundColor: "#38625a", color: "#fff" }}
+            toastStyle={{ backgroundColor: "#2b454e", color: "#fff" }}
             autoClose={1500}
             key={uuidv4()}
           />

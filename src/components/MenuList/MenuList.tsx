@@ -88,12 +88,14 @@ const MenuListComposition = ({ setApiCurrentPath, title }) => {
   }, [open]);
 
   const MenuListStyles = {
-    backgroundColor: "#274540",
+    backgroundColor: "#173038",
     color: "#fff",
+    borderRadius: "3px",
+    border: "none",
   };
 
   const MenuListItemStyles = {
-    backgroundColor: "#274540",
+    backgroundColor: "#173038",
     color: "#fff",
     "&:hover":{
       background: "white",
@@ -108,7 +110,7 @@ const MenuListComposition = ({ setApiCurrentPath, title }) => {
     borderRadius: "10px",
     transition: "0.6s ease",
     "&:hover":{
-        backgroundColor: '#274540)',
+        backgroundColor: '#173038',
         transform: 'scale(1.05)',
       }
   };

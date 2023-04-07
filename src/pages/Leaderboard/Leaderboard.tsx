@@ -8,12 +8,14 @@ import { getDefaultWallets, RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import { configureChains, createClient, WagmiConfig } from "wagmi";
 import { mainnet, polygon, optimism, arbitrum } from "wagmi/chains";
 import { publicProvider } from "wagmi/providers/public";
-import { alchemyProvider } from 'wagmi/providers/alchemy';
-
+import { alchemyProvider } from "wagmi/providers/alchemy";
 
 const { chains, provider } = configureChains(
   [mainnet, polygon, optimism, arbitrum],
-  [ alchemyProvider({ apiKey: import.meta.env.VITE_ALCHEMYID}), publicProvider()]
+  [
+    alchemyProvider({ apiKey: import.meta.env.VITE_ALCHEMYID }),
+    publicProvider(),
+  ]
 );
 
 const { connectors } = getDefaultWallets({
@@ -29,16 +31,19 @@ const wagmiClient = createClient({
 
 function Leaderboard() {
   return (
-    <WagmiConfig client={wagmiClient}>
-      <RainbowKitProvider chains={chains}>
-        <StyledEngineProvider injectFirst>
-          <div className="dinoPage">
-            <DinoTable />
-          </div>
-          <Footer />
-        </StyledEngineProvider>
-      </RainbowKitProvider>
-    </WagmiConfig>
+    <>
+      <div className="background" />
+      <WagmiConfig client={wagmiClient}>
+        <RainbowKitProvider chains={chains}>
+          <StyledEngineProvider injectFirst>
+            <div className="dinoPage">
+              <DinoTable />
+            </div>
+            {/* <Footer /> */}
+          </StyledEngineProvider>
+        </RainbowKitProvider>
+      </WagmiConfig>
+    </>
   );
 }
 

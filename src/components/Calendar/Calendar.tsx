@@ -32,7 +32,7 @@ const Calendar: React.FC<CalendarModel> = ({
       borderBottomColor: "yellow",
     },
     "&:hover": {
-      backgroundColor: "#274540",
+      backgroundColor: "#173038",
     },
     "& .MuiInputBase-root": {
       color: "#fff",

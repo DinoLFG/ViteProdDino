@@ -24,7 +24,7 @@ const Rank: React.FC<RankModel> = ({ score }) => {
 
   return (
     <>
-      {score < 1000 && (
+      {score < 100 && (
         <div className="starWrapper">
           <div
             className="star"

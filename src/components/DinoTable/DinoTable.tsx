@@ -42,7 +42,12 @@ const DinoTable = () => {
   useEffect(() => {
     async function getData(fetchString: string) {
       const result = await fetchData(fetchString);
-      const walletRanks = result.walletRank.map((rank: WalletRank) => ({
+      const walletRanks = result.walletRank?.map((rank: WalletRank) => ({
+        address: rank.address,
+        ammount: rank.ammount,
+        rank: rank.rank,
+        value: rank.value,
+      })) || result.res?.map((rank: WalletRank) => ({
         address: rank.address,
         ammount: rank.ammount,
         rank: rank.rank,
@@ -61,7 +66,7 @@ const DinoTable = () => {
     if (parsedWalletData.state?.data?.account !== undefined) {
       getData(fetchPathRanking);
     }
-  }, [dataF, dataT]);
+  }, [dataF, dataT, apiCurrentPath]);
 
   useEffect(() => {
     const fetchPath = `${
@@ -123,7 +128,7 @@ const DinoTable = () => {
         <div className="dinoTable_wrapper">
           <div className="dinoTable_wrapper_filter">
             <div className="ranges_buttons">
-              <div style={{ display: "flex", gap: "20px" }}>
+              <div style={{ display: "flex", gap: "15px" }}>
                 <MenuListComposition
                   setApiCurrentPath={setApiCurrentPath}
                   title={apiCurrentPath}

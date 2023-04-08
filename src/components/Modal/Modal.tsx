@@ -29,7 +29,7 @@ const ModalComponent: React.FC<ModalComponentModel> = ({
     left: "50%",
     transform: "translate(-50%, -50%)",
     width: "auto",
-    bgcolor: "#38625a",
+    bgcolor: "#2b454e",
     border: "2px solid white",
     borderRadius: "20px",
     boxShadow: 0,
@@ -174,7 +174,7 @@ const ModalComponent: React.FC<ModalComponentModel> = ({
         </Box>
       </Modal>
       <ToastContainer
-        toastStyle={{ backgroundColor: "#38625a", color: "#fff" }}
+        toastStyle={{ backgroundColor: "#2b454e", color: "#fff" }}
         autoClose={1500}
       />
     </React.Fragment>

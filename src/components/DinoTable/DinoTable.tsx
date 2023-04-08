@@ -171,6 +171,8 @@ const DinoTable = () => {
           <div className="dinoTable_2_wrapper">
             <table className="dinoTable" id="dinoTable_2">
               <tbody>
+                {data.length < 1 && 
+                <td className="cell" style={{borderLeft: 'none', padding: '20px 0 20px 0'}}>No data for current timeline :(</td>}
                 {walletAddress && (
                   <tr className="row">
                     <td className="cell">

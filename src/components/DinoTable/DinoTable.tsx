@@ -16,7 +16,13 @@ import etherscanIcon from "../../assetsDino/etherscanIcon.png";
 import ModalComponent from "../Modal/Modal";
 import ConnectorButton from "../ConnectorButton/ConnectorButton";
 import MenuListComposition from "../MenuList/MenuList";
-import { apiPath, checkHeaderTitle, checkSubHeaderTitle, roundingHeaders, rounding } from "./helper";
+import {
+  apiPath,
+  checkHeaderTitle,
+  checkSubHeaderTitle,
+  roundingHeaders,
+  rounding,
+} from "./helper";
 
 const DinoTable = () => {
   const [data, setData] = useState<DinoTableModel[]>([]);
@@ -42,17 +48,19 @@ const DinoTable = () => {
   useEffect(() => {
     async function getData(fetchString: string) {
       const result = await fetchData(fetchString);
-      const walletRanks = result.walletRank?.map((rank: WalletRank) => ({
-        address: rank.address,
-        ammount: rank.ammount,
-        rank: rank.rank,
-        value: rank.value,
-      })) || result.res?.map((rank: WalletRank) => ({
-        address: rank.address,
-        ammount: rank.ammount,
-        rank: rank.rank,
-        value: rank.value,
-      }));
+      const walletRanks =
+        result.walletRank?.map((rank: WalletRank) => ({
+          address: rank.address,
+          ammount: rank.ammount,
+          rank: rank.rank,
+          value: rank.value,
+        })) ||
+        result.res?.map((rank: WalletRank) => ({
+          address: rank.address,
+          ammount: rank.ammount,
+          rank: rank.rank,
+          value: rank.value,
+        }));
       setWalletAddress(walletRanks[0]);
     }
 
@@ -75,9 +83,13 @@ const DinoTable = () => {
     setLoaderLoading(true);
     async function getData() {
       const result = await fetchData(fetchPath);
-      setData(result?.walletRank || result?.res);
-      setIsLoading(false);
-      setLoaderLoading(false);
+      if (result !== 'error') {
+        setData(result?.walletRank || result?.res);
+        setIsLoading(false);
+        setLoaderLoading(false);
+      } else {
+        toast.error("Our serwers are down, try refreshing later");
+      }
     }
     setDataHistory([]);
     setExpandedRows(-1);
@@ -324,7 +336,10 @@ const DinoTable = () => {
                                       </div>
                                     </div>
                                     <div className="cell" key={uuidv4()}>
-                                      {rounding(apiCurrentPath, historyItem.ammount)}
+                                      {rounding(
+                                        apiCurrentPath,
+                                        historyItem.ammount
+                                      )}
                                     </div>
                                   </div>
                                 );
@@ -339,11 +354,6 @@ const DinoTable = () => {
               })}
             </table>
           </div>
-          <ToastContainer
-            toastStyle={{ backgroundColor: "#2b454e", color: "#fff" }}
-            autoClose={1500}
-            key={uuidv4()}
-          />
         </div>
       )}
       {showLoader && <Loader />}
@@ -357,6 +367,11 @@ const DinoTable = () => {
           setDataT={setDataT}
         />
       )}
+      <ToastContainer
+            toastStyle={{ backgroundColor: "#2b454e", color: "#fff", zIndex: 9999 }}
+            autoClose={1500}
+            key={uuidv4()}
+          />
     </>
   );
 };

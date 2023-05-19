@@ -115,6 +115,16 @@ const MenuListComposition = ({ setApiCurrentPath, title }) => {
       }
   };
 
+  const returnProperTitle = (title) => {
+    if (title === apiPath.transactions) {
+      return 'buys';
+    } else if (title === apiPath.nft) {
+      return 'hatch'
+    } else {
+      return title;
+    }
+  }
+
   return (
     <Stack direction="row" spacing={2} style={{ zIndex: "1000" }}>
       <div>
@@ -127,7 +137,7 @@ const MenuListComposition = ({ setApiCurrentPath, title }) => {
           onClick={handleToggle}
           sx={ButtonStyles}
         >
-          {title === apiPath.transactions ? 'buys' : title}
+          {returnProperTitle(title)}
         </Button>
         <Popper
           open={open}
@@ -154,12 +164,12 @@ const MenuListComposition = ({ setApiCurrentPath, title }) => {
                     onKeyDown={handleListKeyDown}
                     sx={MenuListStyles}
                   >
+                    <MenuItem onClick={handleCloseNFT} sx={MenuListItemStyles}>Hatch</MenuItem>
                     <MenuItem onClick={handleCloseTransactions} sx={MenuListItemStyles}>
                       Buys
                     </MenuItem>
                     <MenuItem onClick={handleCloseStaking} sx={MenuListItemStyles}>Staking</MenuItem>
                     <MenuItem onClick={handleCloseBurning} sx={MenuListItemStyles}>Burning</MenuItem>
-                    <MenuItem onClick={handleCloseNFT} sx={MenuListItemStyles}>NFT</MenuItem>
                   </MenuList>
                 </ClickAwayListener>
               </Paper>

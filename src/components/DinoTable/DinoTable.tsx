@@ -33,7 +33,7 @@ const DinoTable = () => {
   const [expandedRows, setExpandedRows] = useState<number>(-1);
   const [walletAddress, setWalletAddress] = useState<WalletRank | null>(null);
   const [apiCurrentPath, setApiCurrentPath] = useState<string>(
-    apiPath.transactions
+    apiPath.nft
   );
   const [open, setOpen] = useState<boolean>(false);
 
